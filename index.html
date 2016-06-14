@@ -246,7 +246,7 @@ code {
                 var key = (hmac.value || '').trim();
                 if(key){
                     var pwd = encrpty.b64_hmac(key, str);
-                    $('result').innerHTML = pwd.replace(/\W/g, '').substr(11, len);
+                    $('result').innerHTML = pwd.replace(/\W/g, '').substr(1, len);
                     localStorage.setItem('_1pwd_type_', t);
                     localStorage.setItem('_1pwd_content_', str);
                     localStorage.setItem('_1pwd_leng_', len);
