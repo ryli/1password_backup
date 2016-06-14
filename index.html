@@ -13,7 +13,7 @@
 <meta name="screen-orientation" content="portrait">
 <meta name="x5-orientation" content="portrait">
 <meta name="msapplication-tap-highlight" content="no">
-<title>Password Generator</title>
+<title>Ryli 1Password</title>
 <style type="text/css">
 * {
     cursor: pointer;
@@ -178,7 +178,7 @@ code {
 </head>
 <body>
 <div class="main">
-<h1>Password Generator</h1>
+<h1>1Password</h1>
 <table cellspacing="0" border="0">
     <tr>
         <td width="60"><span>Type</span></td>
@@ -242,13 +242,14 @@ code {
             var encrpty = new Hashes[t];
             var str = (content.value || '').trim().toLowerCase();
             if(str){
-                var value = getLen();
+                var len = getLen();
                 var key = (hmac.value || '').trim();
                 if(key){
                     var pwd = encrpty.b64_hmac(key, str);
-                    $('result').innerHTML = pwd.replace(/\W/g, '').substring(0, value);
+                    $('result').innerHTML = pwd.replace(/\W/g, '').substr(11, len);
                     localStorage.setItem('_1pwd_type_', t);
-                    localStorage.setItem('_1pwd_leng_', value);
+                    localStorage.setItem('_1pwd_content_', str);
+                    localStorage.setItem('_1pwd_leng_', len);
                 } else {
                     alert('missing 1password');
                     hmac.focus();
@@ -276,6 +277,10 @@ code {
                     opt.setAttribute('selected', 'selected');
                 }
             }
+        }
+        var lastContent = localStorage.getItem('_1pwd_content_');
+        if(lastContent){
+            content.value = lastContent;
         }
         var lastLength = localStorage.getItem('_1pwd_leng_');
         if(lastLength){
